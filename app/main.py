@@ -7,6 +7,7 @@ from app import routers, config
 app = FastAPI()
 
 app.include_router(routers.index.router)
+app.include_router(routers.users.router)
 
 if __name__ == '__main__':
     if config.DEBUG:
