@@ -4,10 +4,5 @@ router = APIRouter()
 
 
 @router.get("/")
-def root():
+def index():
     return {"message": "Hello World"}
-
-
-@router.get("/hello/{name}")
-def say_hello(name: str):
-    return {"message": f"Hello {name}"}
