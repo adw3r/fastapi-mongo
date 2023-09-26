@@ -1,6 +1,6 @@
 import bson
 import pymongo
-from pymongo.results import UpdateResult
+from pymongo.results import UpdateResult, DeleteResult
 
 from app import database, schemas
 
@@ -32,5 +32,20 @@ def insert_user(user: schemas.users.PostUser):
 
 
 def update_user(user_id: str, user: schemas.users.PatchUser) -> UpdateResult:
-    result = database.CLIENT_LOCAL_USERS.update_one({'_id': bson.ObjectId(user_id)}, user.model_dump())
+    result = database.CLIENT_LOCAL_USERS.update(
+        {'_id': bson.ObjectId(user_id)}, {'$set': user.model_dump()}
+    )
     return result
+
+
+def delete_user(user_id: str) -> DeleteResult:
+    result = database.CLIENT_LOCAL_USERS.delete_one({'_id': bson.ObjectId(user_id)})
+    return result
+
+
+def find_and_update_user(user_id: str, user: schemas.users.PatchUser):
+    ...
+
+
+def find_and_delete_user(user_id: str, user: schemas.users.PatchUser):
+    ...
