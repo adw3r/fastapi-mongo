@@ -1,9 +1,11 @@
+import bson
 import pymongo
+from pymongo.results import UpdateResult
 
 from app import database, schemas
 
 
-def get_all_users() -> list[schemas.users.User]:
+def get_all_users() -> list[schemas.users.User] | list[None]:
     users: pymongo.cursor.Cursor = database.CLIENT_LOCAL_USERS.find()
     users: list[schemas.users.User] = [schemas.users.User(**user) for user in users]
     return users
@@ -17,5 +19,18 @@ def get_user_using_email(email: str) -> schemas.users.User | None:
     return user
 
 
-def insert_user(user: schemas.users.User):
+def get_user_using_id(user_id: str) -> schemas.users.User | None:
+    find_result = database.CLIENT_LOCAL_USERS.find_one({'_id': bson.ObjectId(user_id)})
+    if not find_result:
+        return None
+    user = schemas.users.User(**find_result)
+    return user
+
+
+def insert_user(user: schemas.users.PostUser):
     database.CLIENT_LOCAL_USERS.insert_one(user.model_dump())
+
+
+def update_user(user_id: str, user: schemas.users.PatchUser) -> UpdateResult:
+    result = database.CLIENT_LOCAL_USERS.update_one({'_id': bson.ObjectId(user_id)}, user.model_dump())
+    return result

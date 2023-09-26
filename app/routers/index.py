@@ -1,8 +1,10 @@
 from fastapi import APIRouter
 
-router = APIRouter()
+router = APIRouter(
+    tags=['Root']
+)
 
 
 @router.get("/")
-def index():
+def root():
     return {"message": "Hello World"}

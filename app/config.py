@@ -4,6 +4,7 @@ import pathlib
 
 import dotenv
 
+# config
 ROOT_FOLDER = pathlib.Path(__file__).parent.parent
 dotenv.load_dotenv()
 config = configparser.ConfigParser()
