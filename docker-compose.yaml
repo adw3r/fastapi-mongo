@@ -3,7 +3,7 @@ version: "3.8"
 
 services:
   app:
-    image: alexeynaidiuk/fastapi-course
+#    image: alexeynaidiuk/fastapi-course:latest
     build: .
     depends_on:
       - mongo

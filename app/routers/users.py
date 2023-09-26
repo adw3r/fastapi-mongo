@@ -49,7 +49,7 @@ def patch_user(user_id: str, user: schemas.users.PatchUser):
 
 
 # удаление юзера
-@router.delete('/{user_id}', response_model=JSONResponse)
+@router.delete('/{user_id}')
 def delete_user(user_id: str):
     user_exists: schemas.users.User | None = queries.users.get_user_using_id(user_id)
     if not user_exists:
@@ -58,4 +58,4 @@ def delete_user(user_id: str):
     if not delete_result.deleted_count:
         return HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Bad request')
 
-    return {'user deleted': True}
+    return JSONResponse({'user deleted': True})
