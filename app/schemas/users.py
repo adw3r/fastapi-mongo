@@ -23,7 +23,7 @@ PyObjectId = Annotated[
 
 
 class User(BaseModel):
-    id: PyObjectId = Field(alias="_id")
+    id: PyObjectId = Field(alias="_id", serialization_alias='id')
     name: str = Field(...)
     email: EmailStr = Field(...)
     phone: str = Field(...)
@@ -44,7 +44,7 @@ class PutUser(PostUser):
 
 
 class PatchUser(BaseModel):
-    name: str | None = Field(...)
-    email: EmailStr | None = Field(...)
-    phone: str | None = Field(...)
-    password: str | None = Field(...)
+    name: str | None = None
+    email: EmailStr | None = None
+    phone: str | None = None
+    password: str | None = None

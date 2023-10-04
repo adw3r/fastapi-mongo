@@ -32,7 +32,7 @@ def insert_user(user: schemas.users.PostUser):
 
 
 def update_user(user_id: str, user: schemas.users.PatchUser) -> UpdateResult:
-    result = database.CLIENT_LOCAL_USERS.update(
+    result = database.CLIENT_LOCAL_USERS.update_one(
         {'_id': bson.ObjectId(user_id)}, {'$set': user.model_dump()}
     )
     return result

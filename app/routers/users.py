@@ -36,7 +36,7 @@ def post_user(user: schemas.users.PostUser):
 
 
 # частичная замена данных юзера
-@router.patch('/{user_id}', response_model=schemas.users.User)
+@router.patch('/{user_id}')
 def patch_user(user_id: str, user: schemas.users.PatchUser):
     user_exists: schemas.users.User | None = queries.users.get_user_using_id(user_id)
     if not user_exists:
